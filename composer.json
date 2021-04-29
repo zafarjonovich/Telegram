@@ -1,5 +1,5 @@
 {
-  "name": "zafarjonovich/yii-telegram-bot-form",
+  "name": "zafarjonovich/telegram",
   "description": "Yii2 Telegram Form",
   "type": "library",
   "require": {
@@ -8,7 +8,7 @@
   },
   "autoload": {
     "psr-4": {
-      "zafarjonovich\\YiiTelegramBotForm\\": "src"
+      "zafarjonovich\\Telegram\\": "src"
     }
   }
 }
