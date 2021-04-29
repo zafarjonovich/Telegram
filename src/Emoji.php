@@ -1,7 +1,7 @@
 <?php
 
 
-namespace zafarjonovich\TelegramHelpers;
+namespace zafarjonovich\Telegram;
 
 
 class Emoji

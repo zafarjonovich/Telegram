@@ -1,6 +1,6 @@
 <?php
 
-namespace zafarjonovich\TelegramHelpers;
+namespace zafarjonovich\Telegram;
 
 /**
  * Class BotApi
