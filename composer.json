@@ -1,0 +1,14 @@
+{
+  "name": "zafarjonovich/yii-telegram-bot-form",
+  "description": "Yii2 Telegram Form",
+  "type": "library",
+  "require": {
+    "php": ">=7.3.0",
+    "yiisoft/yii2": "^2.0.39"
+  },
+  "autoload": {
+    "psr-4": {
+      "zafarjonovich\\YiiTelegramBotForm\\": "src"
+    }
+  }
+}
