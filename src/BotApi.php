@@ -28,27 +28,23 @@ class BotApi{
     }
 
     public function removeCustomKeyboard(){
-        $reply_markup = [
+        return [
             'remove_keyboard' => true
         ];
-        return $reply_markup;
     }
 
     public function makeCustomKeyboard($buttons,$resize = true,$one_time = true) {
-        $reply_markup = [
+        return [
             'keyboard' => $buttons,
             'resize_keyboard' => $resize ,
             'one_time_keyboard' => $one_time ,
         ];
-        return $reply_markup;
     }
 
     public function makeInlineKeyboard($buttons) {
-        $reply_markup = [
+        return [
             'inline_keyboard' => $buttons
         ];
-        $reply_markup = json_encode( $reply_markup );
-        return $reply_markup;
     }
 
     public function deleteMessage($chat_id,$message_id){
