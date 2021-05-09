@@ -95,9 +95,7 @@ class Keyboard
             $pattern = array_fill(0,(ceil(count($items)/$pattern)),$pattern);
         }
 
-        //var_dump(array_sum($pattern) >= count($items));die;
-
-        if(is_array($pattern) and array_sum($pattern) >= count($items)){
+        if(is_array($pattern) and array_sum($pattern) == count($items)){
 
             for($i=0;$i<count($items);$i++){
 
