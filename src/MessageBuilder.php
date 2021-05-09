@@ -5,11 +5,11 @@ namespace zafarjonovich\Telegram;
 class MessageBuilder
 {
 
-    private const sendMessage = 'sendMessage';
-    private const sendPhoto = 'sendPhoto';
-    private const sendVideo = 'sendVideo';
-    private const sendDocument = 'sendDocument';
-    private const sendContact = 'sendContact';
+    const sendMessage = 'sendMessage';
+    const sendPhoto = 'sendPhoto';
+    const sendVideo = 'sendVideo';
+    const sendDocument = 'sendDocument';
+    const sendContact = 'sendContact';
 
 
     /** @var string Telegram bot method name */
@@ -75,6 +75,10 @@ class MessageBuilder
 
         if(isset($params['reply_markup'])){
             $this->data['reply_markup'] = $params['reply_markup'];
+        }
+
+        if(isset($params['chat_id'])){
+            $this->data['chat_id'] = $params['chat_id'];
         }
 
         $this->method = $method;
