@@ -13,7 +13,7 @@ class Keyboard
 
     private $row = 0;
 
-    public function init($keyboard)
+    public function __construct($keyboard = [])
     {
         $this->keyboard = $keyboard;
         $this->row = count($keyboard) != 0?count($keyboard):0;
