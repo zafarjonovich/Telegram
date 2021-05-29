@@ -13,6 +13,12 @@ class Keyboard
 
     private $row = 0;
 
+    public function init($keyboard)
+    {
+        $this->keyboard = $keyboard;
+        $this->row = count($keyboard) != 0?count($keyboard):0;
+    }
+
     public function addButton($text,$parameter = null){
         $button = ['text'=>$text];
 
