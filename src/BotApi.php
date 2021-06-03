@@ -95,6 +95,16 @@ class BotApi{
         return $this->query('editMessageText',$params);
     }
 
+    public function editMessageReplyMarkup($chat_id,$message_id,$reply_markup,$optional_fields = null) {
+        $required_fields = [
+            'chat_id' => $chat_id,
+            'message_id' => $message_id,
+            'reply_markup' => $text,
+        ];
+        $params = $this->merge_fields($required_fields,$optional_fields);
+        return $this->query('editMessageReplyMarkup',$params);
+    }
+
     public function answerCallback($callback_query_id,$text,$show_alert = true,$optional_fields = null) {
         $required_fields = [
             'callback_query_id' => $callback_query_id,
@@ -113,6 +123,16 @@ class BotApi{
 
         $params = $this->merge_fields($required_fields,$optional_fields);
         return $this->query('sendMessage',$params);
+    }
+
+    public function sendSticker($chat_id,$sticker,$optional_fields = null) {
+        $required_fields = [
+            'chat_id' => $chat_id,
+            'sticker' => $sticker,
+        ];
+
+        $params = $this->merge_fields($required_fields,$optional_fields);
+        return $this->query('sendSticker',$params);
     }
 
     public function forwardMessage($chat_id,$from_chat_id,$message_id,$optional_fields = null){
