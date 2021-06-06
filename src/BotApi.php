@@ -4,9 +4,9 @@ namespace zafarjonovich\Telegram;
 
 /**
  * Class BotApi
- * @package app\telegram
  * @property $message
  * @property $callback_query
+ * @property $inline_query
  * @property int $chat_id
  * @property int $message_id
  * @property mixed $update
@@ -17,6 +17,7 @@ class BotApi{
     public $update = null;
     public $message = null;
     public $callback_query = null;
+    public $inline_query = null;
 
     public $chat_id = null;
     public $message_id = null;
@@ -28,23 +29,23 @@ class BotApi{
     }
 
     public function removeCustomKeyboard(){
-        return [
+        return json_encode([
             'remove_keyboard' => true
-        ];
+        ]);
     }
 
     public function makeCustomKeyboard($buttons,$resize = true,$one_time = true) {
-        return [
+        return json_encode([
             'keyboard' => $buttons,
             'resize_keyboard' => $resize ,
             'one_time_keyboard' => $one_time ,
-        ];
+        ]);
     }
 
     public function makeInlineKeyboard($buttons) {
-        return [
+        return json_encode([
             'inline_keyboard' => $buttons
-        ];
+        ]);
     }
 
     public function deleteMessage($chat_id,$message_id){
@@ -99,7 +100,7 @@ class BotApi{
         $required_fields = [
             'chat_id' => $chat_id,
             'message_id' => $message_id,
-            'reply_markup' => $text,
+            'reply_markup' => $reply_markup,
         ];
         $params = $this->merge_fields($required_fields,$optional_fields);
         return $this->query('editMessageReplyMarkup',$params);
@@ -186,6 +187,15 @@ class BotApi{
         return $this->query('sendDocument',$params);
     }
 
+    public function answerInlineQuery($inline_query_id,$results,$optional_fields = null){
+        $required_fields = [
+            'inline_query_id' => $inline_query_id,
+            'results' => $results,
+        ];
+        $params = $this->merge_fields($required_fields,$optional_fields);
+        return $this->query('answerInlineQuery',$params);
+    }
+
     public function sendLocation($chat_id,$latitude,$longitude,$optional_fields = null){
         $required_fields = [
             'chat_id' => $chat_id,
@@ -217,8 +227,7 @@ class BotApi{
     public function invokeUpdates()
     {
         $update = $this->update;
-        if(isset($update['message']))
-        {
+        if(isset($update['message'])) {
             $this->message = $update['message'];
             $this->chat_id = $this->message['from']['id'];
             $this->message_id = $this->message['message_id'];
@@ -226,28 +235,20 @@ class BotApi{
             $this->callback_query = $update['callback_query'];
             $this->message_id = $update['callback_query']['message']['message_id'];
             $this->chat_id = $update['callback_query']['from']['id'];
+        }elseif(isset($update['inline_query'])) {
+            $this->inline_query = $update['inline_query'];
+            $this->chat_id = $update['inline_query']['from']['id'];
         }
     }
 
     private function merge_fields($required_fields,$optional_fields = null){
-        if(is_array($optional_fields)){
-            return array_merge($required_fields,$optional_fields);
-        }else{
-            return $required_fields;
-        }
+        return array_merge($required_fields,(array)$optional_fields);
     }
 
     public function query($method, $data =[]){
 
-        array_walk($data,function (&$value){
-            if(is_array($value)){
-                $value = json_encode($value);
-            }
-        });
-
         $url = "https://api.telegram.org/bot". $this->token ."/".$method;
         $ch = curl_init();
-
 
         curl_setopt($ch,CURLOPT_URL,$url);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);

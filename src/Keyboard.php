@@ -13,10 +13,121 @@ class Keyboard
 
     private $row = 0;
 
+    private $types = [
+      'inline' => 'inline' ,
+      'text' => 'text'
+    ];
+
+    private $type;
+
     public function __construct($keyboard = [])
     {
         $this->keyboard = $keyboard;
         $this->row = count($keyboard) != 0?count($keyboard):0;
+    }
+
+    public function addRequestContactButton($text)
+    {
+        if(empty($this->keyboard))
+            $this->type = 'text';
+
+        if(!in_array($this->type,['text']))
+            return $this;
+
+        $this->keyboard[$this->row][] = ['text'=>$text,'request_contact'=>true];
+
+        return $this;
+    }
+
+    public function addRequestLocationButton($text)
+    {
+        if(empty($this->keyboard))
+            $this->type = 'text';
+
+        if(!in_array($this->type,['text']))
+            return $this;
+
+        $this->keyboard[$this->row][] = ['text'=>$text,'request_location'=>true];
+
+        return $this;
+    }
+
+    public function addCallbackDataButton($text,$callback_data)
+    {
+        if(empty($this->keyboard))
+            $this->type = 'inline';
+
+        if(!in_array($this->type,['inline']))
+            return $this;
+
+        $this->keyboard[$this->row][] = ['text'=>$text,'callback_data'=>$callback_data];
+
+        return $this;
+    }
+
+    public function addUrlButton($text,$url)
+    {
+        if(empty($this->keyboard))
+            $this->type = 'inline';
+
+        if(!in_array($this->type,['inline']))
+            return $this;
+
+        $this->keyboard[$this->row][] = ['text'=>$text,'url'=>true];
+
+        return $this;
+    }
+
+    public function addSwitchInlineQueryButton($text,$query)
+    {
+        if(empty($this->keyboard))
+            $this->type = 'inline';
+
+        if(!in_array($this->type,['inline']))
+            return $this;
+
+        $this->keyboard[$this->row][] = ['text'=>$text,'switch_inline_query'=>$query];
+
+        return $this;
+    }
+
+    public function addSwitchInlineQueryCurrentChatButton($text,$query)
+    {
+        if(empty($this->keyboard))
+            $this->type = 'inline';
+
+        if(!in_array($this->type,['inline']))
+            return $this;
+
+        $this->keyboard[$this->row][] = ['text'=>$text,'switch_inline_query_current_chat'=>$query];
+
+        return $this;
+    }
+
+    public function addLoginUrlButton($text,$url)
+    {
+        if(empty($this->keyboard))
+            $this->type = 'inline';
+
+        if(!in_array($this->type,['inline']))
+            return $this;
+
+        $this->keyboard[$this->row][] = ['text'=>$text,'switch_inline_query_current_chat'=>$query];
+
+        return $this;
+    }
+
+    public function addPayButton($text)
+    {
+        if(empty($this->keyboard))
+            $this->type = 'inline';
+
+        if(!in_array($this->type,['inline']) or !empty($this->keyboard))
+            return $this;
+
+        $this->keyboard[$this->row][] = ['text'=>$text,'pay'=>true];
+
+        return $this;
     }
 
     public function addButton($text,$parameter = null){
