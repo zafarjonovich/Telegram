@@ -2,6 +2,8 @@
 
 namespace zafarjonovich\Telegram;
 
+use zafarjonovich\Telegram\update\Update;
+
 /**
  * Class BotApi
  * @property $message
@@ -9,7 +11,7 @@ namespace zafarjonovich\Telegram;
  * @property $inline_query
  * @property int $chat_id
  * @property int $message_id
- * @property mixed $update
+ * @property mixed|Update $update
  */
 
 class BotApi{
@@ -126,6 +128,16 @@ class BotApi{
         return $this->query('sendMessage',$params);
     }
 
+    public function sendChatAction($chat_id,$action) {
+        $required_fields = [
+            'chat_id' => $chat_id,
+            'action' => $action,
+        ];
+
+        $params = $this->merge_fields($required_fields);
+        return $this->query('sendChatAction',$params);
+    }
+
     public function sendSticker($chat_id,$sticker,$optional_fields = null) {
         $required_fields = [
             'chat_id' => $chat_id,
@@ -161,6 +173,16 @@ class BotApi{
         $required_fields = [
             'chat_id' => $chat_id,
             'video' => $video,
+        ];
+
+        $params = $this->merge_fields($required_fields,$optional_fields);
+        return $this->query('sendVideo',$params);
+    }
+
+    public function sendAudio($chat_id,$audio,$optional_fields = []){
+        $required_fields = [
+            'chat_id' => $chat_id,
+            'audio' => $audio,
         ];
 
         $params = $this->merge_fields($required_fields,$optional_fields);
@@ -227,6 +249,11 @@ class BotApi{
     public function invokeUpdates()
     {
         $update = $this->update;
+
+        if($update instanceof Update){
+            $update = $update->get();
+        }
+
         if(isset($update['message'])) {
             $this->message = $update['message'];
             $this->chat_id = $this->message['from']['id'];
