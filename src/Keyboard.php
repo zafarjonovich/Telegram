@@ -85,7 +85,7 @@ class Keyboard
         if(!in_array($this->type,['inline']))
             return $this;
 
-        $this->keyboard[$this->row][] = ['text'=>$text,'url'=>true];
+        $this->keyboard[$this->row][] = ['text'=>$text,'url'=>$url];
 
         return $this;
     }
