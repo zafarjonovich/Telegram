@@ -128,6 +128,16 @@ class BotApi{
         return $this->query('sendMessage',$params);
     }
 
+    public function sendMediaGroup($chat_id,$media,$optional_fields = null) {
+        $required_fields = [
+            'chat_id' => $chat_id,
+            'media' => $media,
+        ];
+
+        $params = $this->merge_fields($required_fields,$optional_fields);
+        return $this->query('sendMediaGroup',$params);
+    }
+
     public function sendChatAction($chat_id,$action) {
         $required_fields = [
             'chat_id' => $chat_id,
