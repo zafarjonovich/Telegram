@@ -189,6 +189,16 @@ class BotApi{
         return $this->query('sendVideo',$params);
     }
 
+    public function sendAnimation($chat_id,$animation,$optional_fields = []){
+        $required_fields = [
+            'chat_id' => $chat_id,
+            'animation' => $animation,
+        ];
+
+        $params = $this->merge_fields($required_fields,$optional_fields);
+        return $this->query('sendAnimation',$params);
+    }
+
     public function sendAudio($chat_id,$audio,$optional_fields = []){
         $required_fields = [
             'chat_id' => $chat_id,

@@ -5,6 +5,7 @@ namespace zafarjonovich\Telegram\update\objects;
 
 
 use zafarjonovich\Telegram\update\Objects;
+use zafarjonovich\Telegram\update\traits\Caption;
 use zafarjonovich\Telegram\update\traits\FileAttributes;
 
 class Video extends Objects
