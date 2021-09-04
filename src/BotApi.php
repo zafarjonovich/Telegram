@@ -30,6 +30,11 @@ class BotApi{
         $this->token = $token;
     }
 
+    public function getToken()
+    {
+        return $this->token;
+    }
+
     public function removeCustomKeyboard(){
         return json_encode([
             'remove_keyboard' => true

@@ -143,7 +143,9 @@ class Keyboard
     }
 
     public function newRow(){
-        $this->row++;
+        if(isset($this->keyboard[$this->row]) and count($this->keyboard[$this->row]) > 0){
+            $this->row++;
+        }
         return $this;
     }
 
