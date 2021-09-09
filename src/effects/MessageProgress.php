@@ -1,6 +1,6 @@
 <?php
 
-namespace zafarjonovich\Telegram\telegramEffects;
+namespace zafarjonovich\Telegram\effects;
 
 use zafarjonovich\Telegram\BotApi;
 

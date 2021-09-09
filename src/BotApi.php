@@ -14,8 +14,8 @@ use zafarjonovich\Telegram\update\Update;
  * @property mixed|Update $update
  */
 
-class BotApi{
-
+class BotApi
+{
     public $update = null;
     public $message = null;
     public $callback_query = null;

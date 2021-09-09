@@ -13,6 +13,11 @@ class CallbackQuery extends Objects
 {
     use From,Message;
 
+    public function id()
+    {
+        return $this->data['id'];
+    }
+
     public function getData()
     {
         return $this->data['data'];
