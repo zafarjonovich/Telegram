@@ -15,7 +15,7 @@ class Call
      * @var array $call
      * @throws Exception
      */
-    public function __construct(array $call)
+    public function __construct(array $call = [])
     {
         foreach (static::needPropertyKeys() as $needPropertyKey) {
             if(!isset($call[$needPropertyKey]))
