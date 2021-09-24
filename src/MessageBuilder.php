@@ -13,10 +13,10 @@ class MessageBuilder
 
 
     /** @var string Telegram bot method name */
-    public $method;
+    private $method;
 
     /** @var array Telegram bot message data */
-    public $data;
+    private $data;
 
     /**
      * MessageBuilder constructor.
@@ -85,4 +85,13 @@ class MessageBuilder
 
     }
 
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    public function getProperties()
+    {
+        return $this->data;
+    }
 }

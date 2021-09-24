@@ -14,10 +14,11 @@ use zafarjonovich\Telegram\update\traits\Document;
 use zafarjonovich\Telegram\update\traits\Caption;
 use zafarjonovich\Telegram\update\traits\Audio;
 use zafarjonovich\Telegram\update\traits\Video;
+use zafarjonovich\Telegram\update\traits\VideoNote;
 
 class Message extends Objects
 {
-    use ReplyToMessage,Chat,From,Text,Document,Caption,Audio,Video,Photo;
+    use ReplyToMessage,Chat,From,Text,Document,Caption,Audio,Video,Photo,VideoNote;
 
     public function getMessageId()
     {
