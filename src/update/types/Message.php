@@ -15,10 +15,11 @@ use zafarjonovich\Telegram\update\traits\Caption;
 use zafarjonovich\Telegram\update\traits\Audio;
 use zafarjonovich\Telegram\update\traits\Video;
 use zafarjonovich\Telegram\update\traits\VideoNote;
+use zafarjonovich\Telegram\update\traits\Voice;
 
 class Message extends Objects
 {
-    use ReplyToMessage,Chat,From,Text,Document,Caption,Audio,Video,Photo,VideoNote;
+    use ReplyToMessage,Chat,From,Text,Document,Caption,Audio,Video,Photo,VideoNote,Voice;
 
     public function getMessageId()
     {

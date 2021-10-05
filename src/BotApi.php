@@ -224,6 +224,16 @@ class BotApi{
         return $this->query('sendVideo',$params);
     }
 
+    public function sendVoice($chat_id,$voice,$optional_fields = []){
+        $required_fields = [
+            'chat_id' => $chat_id,
+            'voice' => $voice,
+        ];
+
+        $params = $this->merge_fields($required_fields,$optional_fields);
+        return $this->query('sendVoice',$params);
+    }
+
     public function sendContact($chat_id,$phone_number,$first_name,$optional_fields = null){
         $required_fields = [
             'chat_id' => $chat_id,
