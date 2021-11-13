@@ -6,6 +6,7 @@ namespace zafarjonovich\Telegram\update\objects;
 
 use zafarjonovich\Telegram\update\Objects;
 
+
 class From extends Objects
 {
     public function getId()
