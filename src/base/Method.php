@@ -7,6 +7,8 @@ class Method
 
     protected $options = [];
 
+    protected $optionals = [];
+
     public function getName()
     {
         return $this->method;

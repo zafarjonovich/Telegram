@@ -74,18 +74,18 @@ class Paginatator
             $callbackDataCreater($prevIndex)
         );
 
-        if($this->pageIndexMask){
+        if($this->pageIndexMask instanceof \Closure){
 
-            $buttonText = strtr($this->pageIndexMask,[
-                'nextIndex' => $nextIndex + 1 ,
-                'prevIndex' => $prevIndex + 1 ,
-                'currentIndex' => $this->currentIndex + 1 ,
-                'minIndex' => $this->minIndex + 1 ,
-                'maxIndex' => $this->maxIndex + 1
-            ]);
+            $buttonMaskGenerator = $this->pageIndexMask;
 
             $keyboard->addCallbackDataButton(
-                $buttonText,
+                $buttonMaskGenerator([
+                    'nextIndex' => $nextIndex ,
+                    'prevIndex' => $prevIndex ,
+                    'currentIndex' => $this->currentIndex ,
+                    'minIndex' => $this->minIndex ,
+                    'maxIndex' => $this->maxIndex ,
+                ]),
                 '-'
             );
         }

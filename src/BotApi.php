@@ -72,6 +72,14 @@ class BotApi{
         return $this->query('getChatMember',$required_fields);
     }
 
+    public function getFile($file_id)
+    {
+        $required_fields = [
+            'file_id' => $file_id,
+        ];
+        return $this->query('getFile',$required_fields);
+    }
+
     public function getChat($chat_id)
     {
         $required_fields = [
