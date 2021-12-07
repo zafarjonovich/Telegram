@@ -184,7 +184,7 @@ class Keyboard
 
     public function init()
     {
-        if (!$this->hasButton()) {
+        if ($this->type != self::TYPE_REMOVE_CUSTOM_KEYBOARD && !$this->hasButton()) {
             return null;
         }
 

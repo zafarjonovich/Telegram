@@ -14,6 +14,7 @@ use zafarjonovich\Telegram\update\traits\Text;
 use zafarjonovich\Telegram\update\traits\Document;
 use zafarjonovich\Telegram\update\traits\Caption;
 use zafarjonovich\Telegram\update\traits\Audio;
+use zafarjonovich\Telegram\update\traits\User;
 use zafarjonovich\Telegram\update\traits\Video;
 use zafarjonovich\Telegram\update\traits\VideoNote;
 use zafarjonovich\Telegram\update\traits\Voice;

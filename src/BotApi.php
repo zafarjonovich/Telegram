@@ -63,6 +63,14 @@ class BotApi{
         return $this->query('deleteMessage',$required_fields);
     }
 
+    public function getChatAdministrators($chat_id)
+    {
+        $required_fields = [
+            'chat_id' => $chat_id
+        ];
+        return $this->query('getChatAdministrators',$required_fields);
+    }
+
     public function getChatMember($chat_id,$user_id)
     {
         $required_fields = [

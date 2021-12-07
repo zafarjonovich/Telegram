@@ -9,6 +9,11 @@ use zafarjonovich\Telegram\update\Objects;
 
 class Chat extends Objects
 {
+
+    const TYPE_CHANNEL = 'channel';
+    const TYPE_GROUP = 'group';
+    const TYPE_SUPER_GROUP = 'supergroup';
+
     public function getId()
     {
         return $this->data['id'];

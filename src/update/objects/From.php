@@ -53,4 +53,9 @@ class From extends Objects
     {
         return $this->data['language_code'];
     }
+
+    public function getStatus()
+    {
+        return $this->data['status'];
+    }
 }
