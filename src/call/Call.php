@@ -1,10 +1,10 @@
 <?php
 
 
-namespace zafarjonovich\Telegram\helpers;
+namespace zafarjonovich\Telegram\call;
 
 use Exception;
-use zafarjonovich\Telegram\exception\CallParseException;
+use zafarjonovich\Telegram\call\exception\CallParseException;
 
 class Call
 {
@@ -18,11 +18,9 @@ class Call
      */
     public function __construct(array $call = [])
     {
-        foreach (static::needPropertyKeys() as $needPropertyKey) {
-
-            if(!isset($call[$needPropertyKey]))
-                throw new Exception('Invalid configuration');
-        }
+        foreach (static::needPropertyKeys() as $needPropertyKey)
+            if(!array_key_exists($needPropertyKey,$call))
+                throw new CallParseException('Invalid configuration');
 
         $this->call = $call;
     }
@@ -45,7 +43,7 @@ class Call
      */
     protected static function getValue($data,$key)
     {
-        if(!isset($data[$key]))
+        if(!array_key_exists($key,$data))
             throw new Exception('Call key not found');
 
         return $data[$key];
@@ -58,6 +56,8 @@ class Call
         if(isset($funcNameConstants[$name])){
             return self::getValue($this->call,$funcNameConstants[$name]);
         }
+
+        return null;
     }
 
     /**
@@ -97,9 +97,6 @@ class Call
 
         if($json === false)
             throw new Exception('Added invalid option');
-
-        if(strlen($json) > self::MAX_CALL_STRING_LENGTH)
-            throw new Exception('Call is too long');
 
         return $json;
     }
