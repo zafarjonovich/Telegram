@@ -10,6 +10,7 @@ use zafarjonovich\Telegram\update\Update;
  * @property $callback_query
  * @property $inline_query
  * @property int $chat_id
+ * @property int $from_id
  * @property int $message_id
  * @property mixed|Update $update
  */
@@ -21,6 +22,7 @@ class BotApi{
     public $callback_query = null;
     public $inline_query = null;
 
+    public $from_id = null;
     public $chat_id = null;
     public $message_id = null;
 
@@ -317,15 +319,18 @@ class BotApi{
 
         if(isset($update['message'])) {
             $this->message = $update['message'];
-            $this->chat_id = $this->message['from']['id'];
+            $this->chat_id = $this->message['chat']['id'];
+            $this->from_id = $this->message['from']['id'];
             $this->message_id = $this->message['message_id'];
         }elseif(isset($update['callback_query'])) {
             $this->callback_query = $update['callback_query'];
             $this->message_id = $update['callback_query']['message']['message_id'];
-            $this->chat_id = $update['callback_query']['from']['id'];
+            $this->from_id = $update['callback_query']['from']['id'];
+            $this->chat_id = $update['callback_query']['message']['chat']['id'];
         }elseif(isset($update['inline_query'])) {
             $this->inline_query = $update['inline_query'];
-            $this->chat_id = $update['inline_query']['from']['id'];
+            $this->chat_id = $update['inline_query']['chat']['id'];
+            $this->from_id = $update['inline_query']['from']['id'];
         }
     }
 
