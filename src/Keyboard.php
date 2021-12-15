@@ -92,7 +92,7 @@ class Keyboard
         if($this->type !== self::TYPE_INLINE)
             return $this;
 
-        $this->keyboard[$this->row][] = ['text'=>$text,'callback_data'=>$callback_data];
+        $this->keyboard[$this->row][] = ['text'=>$text, 'callback_data'=> (string)$callback_data];
 
         return $this;
     }
