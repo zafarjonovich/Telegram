@@ -54,7 +54,7 @@ class Call
         $funcNameConstants = static::functionNameConstants();
 
         if(isset($funcNameConstants[$name])){
-            return self::getValue($this->call,$funcNameConstants[$name]);
+            return static::getValue($this->call,$funcNameConstants[$name]);
         }
 
         return null;
@@ -104,5 +104,10 @@ class Call
     public static function parse($call)
     {
         return new static(self::decode($call));
+    }
+
+    public function get()
+    {
+        return $this->call;
     }
 }
