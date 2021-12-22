@@ -44,7 +44,7 @@ class Call
     protected static function getValue($data,$key)
     {
         if(!array_key_exists($key,$data))
-            throw new Exception('Call key not found');
+            throw new CallParseException('Call key not found');
 
         return $data[$key];
     }

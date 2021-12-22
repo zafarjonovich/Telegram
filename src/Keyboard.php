@@ -159,6 +159,8 @@ class Keyboard
 
         $this->keyboard[$this->row][] = ['text'=>$text,'pay'=>true];
 
+        $this->triggerAdd();
+
         return $this;
     }
 
@@ -219,6 +221,22 @@ class Keyboard
         return json_encode([
             'remove_keyboard' => true
         ]);
+    }
+
+    public function buttonCount()
+    {
+        $count = 0;
+
+        foreach ($this->keyboard as $rows)
+            foreach ($rows as $button)
+                $count++;
+
+        return $count;
+    }
+
+    public function onAddButton(\Closure $callback)
+    {
+        $callback($this);
     }
 
     public function hasButton()
