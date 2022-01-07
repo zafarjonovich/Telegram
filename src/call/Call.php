@@ -98,6 +98,9 @@ class Call
         if($json === false)
             throw new Exception('Added invalid option');
 
+        if (mb_strlen($json) > 64)
+            throw new \Exception('More data');
+
         return $json;
     }
 
