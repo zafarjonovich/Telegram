@@ -58,4 +58,42 @@ class From extends Objects
     {
         return $this->data['status'];
     }
+
+    public function getBio()
+    {
+        static $bio = null;
+
+        if ($bio === null) {
+            if (!$this->hasUsername()) {
+                $bio = '';
+                return $bio;
+            }
+
+            $options = array(
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_HEADER         => false,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_ENCODING       => "",
+                CURLOPT_USERAGENT      => "spider",
+                CURLOPT_AUTOREFERER    => true,
+                CURLOPT_CONNECTTIMEOUT => 120,
+                CURLOPT_TIMEOUT        => 120,
+                CURLOPT_MAXREDIRS      => 10,
+                CURLOPT_SSL_VERIFYPEER => false
+            );
+
+            $ch      = curl_init('https://t.me/'.$this->getUsername());
+            curl_setopt_array( $ch, $options );
+            $content = curl_exec( $ch );
+            $err     = curl_errno( $ch );
+            $errmsg  = curl_error( $ch );
+            $header  = curl_getinfo( $ch );
+            curl_close( $ch );
+
+            $has = preg_match('/<div class="tgme_page_description ">([^<]+)<\/div>/i', $content, $matches);
+
+            $bio = $matches[1] ?? null;
+        }
+        return $bio;
+    }
 }

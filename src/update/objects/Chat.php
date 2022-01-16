@@ -9,7 +9,6 @@ use zafarjonovich\Telegram\update\Objects;
 
 class Chat extends Objects
 {
-
     const TYPE_PRIVATE = 'private';
     const TYPE_CHANNEL = 'channel';
     const TYPE_GROUP = 'group';

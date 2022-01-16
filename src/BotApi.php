@@ -319,18 +319,18 @@ class BotApi{
 
         if(isset($update['message'])) {
             $this->message = $update['message'];
-            $this->chat_id = $this->message['chat']['id'];
-            $this->from_id = $this->message['from']['id'];
-            $this->message_id = $this->message['message_id'];
+            $this->chat_id = $this->message['chat']['id'] ?? null;
+            $this->from_id = $this->message['from']['id'] ?? null;
+            $this->message_id = $this->message['message_id'] ?? null;
         }elseif(isset($update['callback_query'])) {
             $this->callback_query = $update['callback_query'];
-            $this->message_id = $update['callback_query']['message']['message_id'];
-            $this->from_id = $update['callback_query']['from']['id'];
-            $this->chat_id = $update['callback_query']['message']['chat']['id'];
+            $this->message_id = $update['callback_query']['message']['message_id'] ?? null;
+            $this->from_id = $update['callback_query']['from']['id'] ?? null;
+            $this->chat_id = $update['callback_query']['message']['chat']['id'] ?? null;
         }elseif(isset($update['inline_query'])) {
             $this->inline_query = $update['inline_query'];
-            $this->chat_id = $update['inline_query']['chat']['id'];
-            $this->from_id = $update['inline_query']['from']['id'];
+            //$this->chat_id = $update['inline_query']['chat']['id'];
+            $this->from_id = $update['inline_query']['from']['id'] ?? null;
         }
     }
 

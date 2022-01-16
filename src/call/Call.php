@@ -44,7 +44,7 @@ class Call
     protected static function getValue($data,$key)
     {
         if(!array_key_exists($key,$data))
-            throw new CallParseException('Call key not found');
+            throw new Exception('Call key not found');
 
         return $data[$key];
     }
@@ -97,9 +97,6 @@ class Call
 
         if($json === false)
             throw new Exception('Added invalid option');
-
-        if (mb_strlen($json) > 64)
-            throw new \Exception('More data');
 
         return $json;
     }

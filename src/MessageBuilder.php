@@ -4,7 +4,6 @@ namespace zafarjonovich\Telegram;
 
 class MessageBuilder
 {
-
     const sendMessage = 'sendMessage';
     const sendPhoto = 'sendPhoto';
     const sendVideo = 'sendVideo';
@@ -16,7 +15,7 @@ class MessageBuilder
     private $method;
 
     /** @var array Telegram bot message data */
-    private $data;
+    private $data = [];
 
     /**
      * MessageBuilder constructor.
@@ -29,11 +28,11 @@ class MessageBuilder
     {
         $method = null;
 
-        if(isset($params['method'],$params['content'])and in_array($params['method'],[self::sendPhoto,self::sendVideo,self::sendDocument])){
+        if(isset($params['method'],$params['content']) && in_array($params['method'],[self::sendPhoto,self::sendVideo,self::sendDocument])){
 
             $content = null;
 
-            if(filter_var($params['content'], FILTER_VALIDATE_URL) !== false){
+            if(filter_var($params['content'], FILTER_VALIDATE_URL) !== false) {
                 $content = $params['content'];
             }else if(file_exists($params['content'])){
                 $content = new \CURLFile($params['content']);
@@ -42,22 +41,38 @@ class MessageBuilder
             if($content === null){
                 throw new \Exception('Content must be valid');
             }
-
+            
             $this->data[strtolower(str_replace(['send'],'',$params['method']))] = $content;
 
             $method = $params['method'];
 
+            unset($params['method'],$params['content']);
+        }
+
+        if (isset($params['photo'])) {
+            $method = self::sendPhoto;
+        }
+
+        if (isset($params['video'])) {
+            $method = self::sendVideo;
+        }
+
+        if (isset($params['document'])) {
+            $method = self::sendDocument;
+        }
+        
+        if (isset($params['method'])) {
+            $method = $params['method'];
+            unset($params['method']);
         }
 
         if(isset($params['contact'])){
-
             $method = self::sendContact;
             $this->data['contact'] = $params['contact'];
-
         }
 
-        if(isset($params['text'])){
-            if($method !== null){
+        if(isset($params['text'])) {
+            if($method !== null) {
                 $this->data['caption'] = $params['text'];
             }else{
                 $this->data['text'] = $params['text'];
@@ -65,24 +80,9 @@ class MessageBuilder
             }
         }
 
-        if(empty($this->data)){
-            throw new \Exception('Params must be valid');
-        }
-
-        if(isset($params['parse_mode'])){
-            $this->data['parse_mode'] = $params['parse_mode'];
-        }
-
-        if(isset($params['reply_markup'])){
-            $this->data['reply_markup'] = $params['reply_markup'];
-        }
-
-        if(isset($params['chat_id'])){
-            $this->data['chat_id'] = $params['chat_id'];
-        }
+        $this->data = array_merge($params,$this->data);
 
         $this->method = $method;
-
     }
 
     public function getMethod()
