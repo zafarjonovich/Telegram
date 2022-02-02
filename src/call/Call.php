@@ -3,7 +3,6 @@
 
 namespace zafarjonovich\Telegram\call;
 
-use Exception;
 use zafarjonovich\Telegram\call\exception\CallParseException;
 
 class Call
@@ -13,14 +12,15 @@ class Call
     protected const MAX_CALL_STRING_LENGTH = 64;
 
     /**
-     * @var array $call
-     * @throws Exception
+     * Call constructor.
+     * @param array $call
+     * @throws CallParseException
      */
     public function __construct(array $call = [])
     {
-        foreach (static::needPropertyKeys() as $needPropertyKey)
-            if(!array_key_exists($needPropertyKey,$call))
-                throw new CallParseException('Invalid configuration');
+        foreach (static::needPropertyKeys() as $needPropertyKey) {
+            static::getValue($call,$needPropertyKey);
+        }
 
         $this->call = $call;
     }
@@ -39,12 +39,13 @@ class Call
      * @param $data
      * @param $key
      * @return mixed
-     * @throws Exception
+     * @throws CallParseException
      */
     protected static function getValue($data,$key)
     {
-        if(!array_key_exists($key,$data))
-            throw new Exception('Call key not found');
+        if(!array_key_exists($key,$data)) {
+            throw new CallParseException('Call key not found');
+        }
 
         return $data[$key];
     }
@@ -63,7 +64,7 @@ class Call
     /**
      * @param $data
      * @param array $keys
-     * @throws Exception
+     * @throws CallParseException
      */
     protected static function checkCall($data,array $keys)
     {
@@ -76,8 +77,9 @@ class Call
     {
         $call = json_decode($call,true);
 
-        if(!$call)
+        if($call === null) {
             throw new CallParseException('Call is not json');
+        }
 
         return $call;
     }
@@ -85,7 +87,7 @@ class Call
     /**
      * @param array $options
      * @return string
-     * @throws Exception
+     * @throws CallParseException
      */
     public function encode(array $options = []):string
     {
@@ -95,8 +97,9 @@ class Call
 
         $json = json_encode($call);
 
-        if($json === false)
-            throw new Exception('Added invalid option');
+        if($json === false) {
+            throw new CallParseException('Added invalid option');
+        }
 
         return $json;
     }
