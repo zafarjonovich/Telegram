@@ -263,6 +263,36 @@ class BotApi{
         return $this->query('sendContact',$params);
     }
 
+    public function kickChatMember($chat_id, $user_id, $optional_fields = null)
+    {
+        $required_fields = [
+            'chat_id' => $chat_id,
+            'user_id' => $user_id,
+        ];
+
+        $params = $this->merge_fields($required_fields,$optional_fields);
+
+        return $this->query('kickChatMember', $params);
+    }
+
+    public function createChatInviteLink($chat_id, $options = [])
+    {
+        $required_fields = [
+            'chat_id' => $chat_id,
+        ];
+        $options_fields = array_merge($required_fields, $options);
+        return $this->query('createChatInviteLink', $options_fields);
+    }
+
+    public function revokeChatInviteLink($chat_id, $invite_link)
+    {
+        $required_fields = [
+            'chat_id' => $chat_id,
+            'invite_link' => $invite_link,
+        ];
+        return $this->query('revokeChatInviteLink', $required_fields);
+    }
+
     public function sendDocument($chat_id,$document,$optional_fields = null){
         $required_fields = [
             'chat_id' => $chat_id,

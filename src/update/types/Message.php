@@ -8,6 +8,8 @@ use zafarjonovich\Telegram\update\Objects;
 use zafarjonovich\Telegram\update\traits\Contact;
 use zafarjonovich\Telegram\update\traits\From;
 use zafarjonovich\Telegram\update\traits\Chat;
+use zafarjonovich\Telegram\update\traits\LeftChatMember;
+use zafarjonovich\Telegram\update\traits\NewChatMember;
 use zafarjonovich\Telegram\update\traits\Photo;
 use zafarjonovich\Telegram\update\traits\ReplyToMessage;
 use zafarjonovich\Telegram\update\traits\Text;
@@ -21,7 +23,7 @@ use zafarjonovich\Telegram\update\traits\Voice;
 
 class Message extends Objects
 {
-    use ReplyToMessage,Chat,From,Text,Document,Caption,Audio,Video,Photo,VideoNote,Voice,Contact;
+    use ReplyToMessage,Chat,From,Text,Document,Caption,Audio,Video,Photo,VideoNote,Voice,Contact, LeftChatMember, NewChatMember;
 
     public function getMessageId()
     {
