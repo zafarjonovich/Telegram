@@ -13,6 +13,11 @@ class Update extends Objects
 {
     use Message,CallbackQuery;
 
+    public function getUpdateId()
+    {
+        return $this->data['update_id'];
+    }
+
     public function isInlineQuery()
     {
         return isset($this->data['inline_query']);
