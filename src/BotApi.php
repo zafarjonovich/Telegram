@@ -82,6 +82,16 @@ class BotApi{
         return $this->query('getChatMember',$required_fields);
     }
 
+    public function setMessageReaction($chat_id, $message_id, $optional_fields = [])
+    {
+        $required_fields = [
+            'chat_id' => $chat_id,
+            'message_id' => $message_id,
+        ];
+        $params = $this->merge_fields($required_fields,$optional_fields);
+        return $this->query('setMessageReaction',$params);
+    }
+
     public function getFile($file_id)
     {
         $required_fields = [
